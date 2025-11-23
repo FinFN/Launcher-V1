@@ -163,59 +163,8 @@ namespace Flipped.Frames.Pages
                                 return;
                             }
                         }
+
                         WebClient Client = new WebClient();
-                        try
-                        {
-                            string ArenaPath = Path.Combine(GamePath, "Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64", "areena.dll");
-                            string arenaUrl = "https://fentti.xyz/upload/areena.dll";
-                            try
-                            {
-                                Client.DownloadFile(arenaUrl, ArenaPath);
-                            }
-                            catch (Exception)
-                            {
-                                // Download failed - continue without blocking launcher
-                            }
-
-                            // Try to find a running Fortnite process to inject into
-                            int? targetPid = null;
-                            foreach (var p in Process.GetProcessesByName("FortniteClient-Win64-Shipping"))
-                            {
-                                try
-                                {
-                                    if (p.MainModule.FileName.StartsWith(GamePath, StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        targetPid = p.Id;
-                                        break;
-                                    }
-                                }
-                                catch { }
-                            }
-
-                            // Fallback: use Game._FortniteProcess if available
-                            if (!targetPid.HasValue)
-                            {
-                                try
-                                {
-                                    if (Game._FortniteProcess != null && !Game._FortniteProcess.HasExited)
-                                    {
-                                        targetPid = Game._FortniteProcess.Id;
-                                    }
-                                }
-                                catch { }
-                            }
-
-                            if (targetPid.HasValue && File.Exists(ArenaPath))
-                            {
-                                try
-                                {
-                                    await Task.Delay(7000);
-                                    Injector.Inject(targetPid.Value, ArenaPath);
-                                }
-                                catch { }
-                            }
-                        }
-                        catch { }
                         //Client.DownloadFile("https://flopper.dev/Cobalt.dll", Path.Combine(Path69, "Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64", "GFSDK_Aftermath_Lib.x64.dll"));
                         if (!File.Exists(System.IO.Path.Combine(GamePath, "FlippedEAC.exe")))
                         {

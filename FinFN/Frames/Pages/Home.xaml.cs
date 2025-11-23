@@ -29,7 +29,7 @@ namespace Flipped.Frames.Pages
         private string NewsEndpoint1 = $"http://{LauncherIps.Backend}/fetch/news1";
         private string NewsEndpoint2 = $"http://{LauncherIps.Backend}/fetch/news2";
         private string NewsEndpoint3 = $"http://{LauncherIps.Backend}/fetch/news3";
-        private string Version = "0.1.2";
+        private string Version = "1.0.0";
         public Home()
         {
             InitializeComponent();
